@@ -82,17 +82,26 @@ public class ExamController {
    // @ApiOperation(value = "get Exam by id")
     @RequestMapping(value = RequestMappingConstants.GETEXAMBYID, params = {"examId"}, method = RequestMethod.GET)
     public ResponseEntity<?> getExamById(@RequestParam("examId") int examId)  {
-        Exam exam = examService.getExamById(examId);
-        return ResponseEntity.ok(exam);
+        try{
+            Exam exam = examService.getExamById(examId);
+            return ResponseEntity.ok(exam);
+        }
+        catch (Exception e){
+            return new ResponseEntity<Message>(new Message(HttpStatus.BAD_REQUEST, e.getMessage(), CommonConstants.EXCEPTION), HttpStatus.BAD_REQUEST);
+        }
     }
 
     // @ApiOperation(value = "delete Exam by id")
     @RequestMapping(value = RequestMappingConstants.DELETEEXAM, params = {"examId"}, method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Message> deleteExam(@RequestParam("examId") int examId)  {
 
-        examService.deleteExam(examId);
-        return new ResponseEntity<Message>(new Message(HttpStatus.OK, MessageConstant.EXAM_DELETED, CommonConstants.SUCCESS), HttpStatus.OK);
+        try{
+            examService.deleteExam(examId);
+            return new ResponseEntity<Message>(new Message(HttpStatus.OK, MessageConstant.EXAM_DELETED, CommonConstants.SUCCESS), HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<Message>(new Message(HttpStatus.BAD_REQUEST, e.getMessage(), CommonConstants.EXCEPTION), HttpStatus.BAD_REQUEST);
+        }
     }
-
 
 }

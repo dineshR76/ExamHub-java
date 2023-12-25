@@ -4,13 +4,14 @@ import com.ExamHub.ExamHub.dao.examDao.ExamDao;
 import com.ExamHub.ExamHub.dto.examRequestDto.ExamRequestDto;
 import com.ExamHub.ExamHub.entity.examEntity.Exam;
 import com.ExamHub.ExamHub.service.examService.ExamService;
+import com.ExamHub.ExamHub.utils.constants.CommonConstants;
 import com.ExamHub.ExamHub.utils.dateTimeUtils.DateTimeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.time.LocalDateTime;
 
 @Service
 public class ExamServiceImpl implements ExamService {
@@ -30,7 +31,7 @@ public class ExamServiceImpl implements ExamService {
     public Exam updateExam(ExamRequestDto examRequestDto) throws ParseException {
 
         if(examRequestDto.getExamId() == null){
-            throw new RuntimeException("examId required");
+            throw new NullPointerException("examId required");
         }
 
         Exam exam = convertDtoToEntity(examRequestDto);
@@ -56,14 +57,23 @@ public class ExamServiceImpl implements ExamService {
     private Exam convertDtoToEntity(ExamRequestDto examRequestDto) throws ParseException {
         Exam exam = (examRequestDto.getExamId() != null) ? examDao.getExamById(examRequestDto.getExamId()) : new Exam();
 
-        exam.setTitle(examRequestDto.getTitle());
+        if(StringUtils.isNotEmpty(examRequestDto.getTitle()) ){
+            exam.setTitle(examRequestDto.getTitle());
+        }else{
+            throw  new NullPointerException("title is required");
+        }
 
-        LocalDateTime startTime = DateTimeUtils.convertStringToLocalDateTime(examRequestDto.getStartTime(), "yyyy-MM-dd'T'HH:mm:ss");
-        LocalDateTime endTime = DateTimeUtils.convertStringToLocalDateTime(examRequestDto.getEndTime(), "yyyy-MM-dd'T'HH:mm:ss");
+        if(StringUtils.isNotEmpty(examRequestDto.getStartTime()) ){
+            exam.setStartTime(DateTimeUtils.convertStringToLocalDateTime(examRequestDto.getStartTime(), CommonConstants.DATETIMEFORMET));
+        }else{
+            throw  new NullPointerException("startTime is required");
+        }
 
-        exam.setStartTime(startTime);
-        exam.setEndTime(endTime);
-
+        if(StringUtils.isNotEmpty(examRequestDto.getEndTime()) ){
+            exam.setEndTime(DateTimeUtils.convertStringToLocalDateTime(examRequestDto.getEndTime(),CommonConstants.DATETIMEFORMET ));
+        }else{
+            throw  new NullPointerException("endTime is required");
+        }
         return exam;
     }
 }
