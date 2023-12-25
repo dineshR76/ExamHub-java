@@ -1,4 +1,4 @@
-package com.ExamHum.ExamHum.enums;
+package com.ExamHum.ExamHum.utils.enums;
 
 public enum ExamStatus {
     IN_PROGRESS,

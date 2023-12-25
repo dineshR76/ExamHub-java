@@ -1,6 +1,6 @@
-package com.ExamHum.ExamHum.entity;
+package com.ExamHum.ExamHum.entity.examEntity;
 
-import com.ExamHum.ExamHum.enums.UserRole;
+import com.ExamHum.ExamHum.utils.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
