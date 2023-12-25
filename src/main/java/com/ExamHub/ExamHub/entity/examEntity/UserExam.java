@@ -1,6 +1,6 @@
-package com.ExamHum.ExamHum.entity;
+package com.ExamHub.ExamHub.entity.examEntity;
 
-import com.ExamHum.ExamHum.enums.ExamStatus;
+import com.ExamHub.ExamHub.utils.enums.ExamStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -8,10 +8,10 @@
 		<version>3.2.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ExamHum</groupId>
-	<artifactId>ExamHum</artifactId>
+	<groupId>com.ExamHub</groupId>
+	<artifactId>ExamHub</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ExamHum</name>
+	<name>ExamHub</name>
 	<description>ExamHub aims to develop a robust examination application that facilitates online assessments through multiple-choice questions. The platform provides a centralized hub for educators to create, manage, and conduct examinations while offering a seamless experience for test-takers</description>
 	<properties>
 		<java.version>17</java.version>
@@ -33,6 +33,16 @@
 <!--			<groupId>org.flywaydb</groupId>-->
 <!--			<artifactId>flyway-mysql</artifactId>-->
 <!--		</dependency>-->
+
+
+			<!-- Other dependencies -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.12.0</version> <!-- Use the latest version available -->
+			</dependency>
+
+
 
 		<dependency>
 			<groupId>com.mysql</groupId>

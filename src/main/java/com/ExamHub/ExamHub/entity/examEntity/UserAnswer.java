@@ -1,4 +1,4 @@
-package com.ExamHum.ExamHum.entity;
+package com.ExamHub.ExamHub.entity.examEntity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

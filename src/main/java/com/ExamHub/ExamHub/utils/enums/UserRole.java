@@ -1,4 +1,4 @@
-package com.ExamHum.ExamHum.enums;
+package com.ExamHub.ExamHub.utils.enums;
 
 public enum UserRole {
     ADMIN,
