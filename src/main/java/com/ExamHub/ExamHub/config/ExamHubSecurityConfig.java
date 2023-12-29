@@ -30,6 +30,11 @@ public class ExamHubSecurityConfig {
     @Autowired
     private CustomUserDetailsService userService;
     public static final String[] PUBLIC_URLS = {
+            "/v3/api-docs/**",
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/webjars/**",
             "/exam/hub/api/v1/auth/token",
             "/exam/hub/api/v1/auth/forgot/password"
     };

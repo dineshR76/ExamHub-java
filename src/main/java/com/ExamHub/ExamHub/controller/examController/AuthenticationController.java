@@ -11,6 +11,7 @@ import com.ExamHub.ExamHub.service.examService.UserService;
 import com.ExamHub.ExamHub.utils.constants.MessageConstant;
 import com.ExamHub.ExamHub.utils.constants.RequestMappingConstants;
 import com.ExamHub.ExamHub.utils.helpers.JwtUtil;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(
+        name = "Authentication Controller",
+        description = "REST APIs - generate token, forgot password, change password"
+)
 @RestController
 @AllArgsConstructor
 @RequestMapping(RequestMappingConstants.LOGINAPIVERSION)
@@ -43,6 +49,10 @@ public class AuthenticationController {
     @Autowired
     private PasswordService passwordService;
 
+    @Operation(
+            summary = "Generate token REST API",
+            description = "Generate token API is used to generate the JWT token by validating the username and password by fetching it from the database"
+    )
     @RequestMapping(value = RequestMappingConstants.GETTOKEN, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
         User user = userService.findByUsername(jwtRequest.getUsername());
@@ -73,11 +83,19 @@ public class AuthenticationController {
         return ResponseEntity.ok(new JwtResponse(userDetails, token));
     }
 
+    @Operation(
+            summary = "Forgot password REST API",
+            description = "forgot password API generates the random 7 char alphanumeric password and sends the e-mail to the user"
+    )
     @RequestMapping(value = RequestMappingConstants.FORGETPASSWORD, method = RequestMethod.GET)
     public ResponseEntity<Message> forgotPassword(@RequestParam String email) throws Exception {
         return passwordService.resetForgetPasswordAndMailToCorrespondingUser(email);
     }
 
+    @Operation(
+            summary = "Change password REST API",
+            description = "Change password API changes the current password of the user"
+    )
     @RequestMapping(value = RequestMappingConstants.USERCHANGEPASSWORD, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public ResponseEntity<Message> changeUserPassword(@RequestBody PasswordChangeRequest passwordChangeRequest) throws Exception {
         return passwordService.changeUserPassword(passwordChangeRequest);
