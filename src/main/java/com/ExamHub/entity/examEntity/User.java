@@ -25,5 +25,8 @@ public class User {
 
     @Column(name = "role")
     private UserRole role;
+
+    @Column(columnDefinition = "boolean default true", name = "status")
+    private boolean status;
 }
 
